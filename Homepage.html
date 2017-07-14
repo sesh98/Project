@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="Search Engine">
+    <meta name="author" content="Seshasayi">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="Favi.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+	<title>Flash</title>
+</head>
+<style type="text/css">
+	#jk{
+		display: block;
+		margin:0 auto;
+		width: 500px;
+		height:250px;
+	}
+	#Logo{
+		-webkit-transform:skewX(15deg);
+		font-family: Lobster, cursive;
+		font-size:700%;
+		text-align: center;
+		color:rgb(200,0,0);
+		text-shadow: 10px 10px 10px green;
+	}
+	input[name="searchquery"]{
+		width: 130px;
+		text-align:left;
+		display: block;
+		margin:0 auto;
+    	box-sizing: border-box;
+    	border: 2px solid #ccc;
+    	border-radius: 4px;
+    	font-size: 16px;
+   		background-color: white;
+    	background-image: url('searchicon.png');
+    	background-position: 10px 10px; 
+    	background-repeat: no-repeat;
+    	padding: 12px 20px 12px 40px;
+        -webkit-transition: width 0.4s ease-in-out;
+    	transition: width 0.4s ease-in-out;
+	}
+	input[name="searchquery"]:focus{
+		display: block;
+  		width: 50%;
+  		margin:0 auto;
+  		font-family: sans-serif;
+  		font-size: 25px;
+		box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  		padding: 3px 0px 3px 3px;
+ 	 	border: 1px solid rgba(81, 203, 238, 1);
+	}
+	
+</style>
+<body style="background: #fdd835;background-image: url(rain.jpg)">
+<img id="jk" src="Ask.gif"></img>
+<h1 id="Logo">SeashEngine</h1>
+<form method="get" action="search.php">
+<input placeholder="Search..." type="text" name="searchquery" ></form>	
+</form>
+</body>
+</html>
