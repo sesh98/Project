@@ -35,14 +35,14 @@ $searchstr=explode(" ",$search);//breaks
 $x=0;$construct="";
 foreach ($searchstr as $search_each ) {
 	if($x==0)
-		$temp=" keywords LIKE '%$search_each%'";//search for words containing  search_each
+		$temp="'%$search_each%'";//search for words containing  search_each
 	else 
-		$temp =" OR keywords LIKE '%$search_each%'";//to insert algorithm to give weightage to recurring words.
+		$temp =" AND '%$search_each%'";//to insert algorithm to give weightage to recurring words.
 	$x++;
 	$construct= implode(array($construct, $temp));
-}
-echo $construct."<br>";
-$sql=mysqli_query($conn,"SELECT url FROM searchengine WHERE $construct");
+}//WHERE MATCH(productline) AGAINST('Classic');
+echo $construct."<br>";//construct variable not used in match against
+$sql=mysqli_query($conn,"SELECT url FROM searchengine WHERE MATCH (keywords) AGAINST ($search IN NATURAL LANGUAGE MODE)");
 $numResults=mysqli_num_rows($sql);
 if($numResults==0){
 	echo "Sorry :( ive failed you"."<br>";
