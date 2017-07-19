@@ -41,19 +41,24 @@ foreach ($searchstr as $search_each ) {
 	$x++;
 	$construct= implode(array($construct, $temp));
 }//WHERE MATCH(productline) AGAINST('Classic');
-echo $construct."<br>";//construct variable not used in match against
-$sql=mysqli_query($conn,"SELECT url FROM searchengine WHERE MATCH (keywords) AGAINST ($search IN NATURAL LANGUAGE MODE)");
+echo $construct."<br>";
+
+$sql=mysqli_query($conn,"SELECT url FROM searchengine WHERE MATCH (keywords) AGAINST ('$search' IN NATURAL LANGUAGE MODE);");
+echo $sql;
 $numResults=mysqli_num_rows($sql);
+
 if($numResults==0){
 	echo "Sorry :( ive failed you"."<br>";
 }
 else
 {
 	echo $numResults."Found"."<br>";
+
 	while($row=mysqli_fetch_assoc($sql)){
+		countocc($row['url'],$search);//return var
 		echo "<a href='".$row['url']."' id='link'>".page_title($row['url'])."</a>"."<br>";
 		echo "<cite id='cit'>".$row['url']."</cite><br>";
-		if((get_meta_tags($row['url'])['description']))
+		if((array_key_exists('description', get_meta_tags($row['url']))))
 			echo (get_meta_tags($row['url'])['description'])."<br>";
 		else
 			echo "No description"."<br>";
@@ -79,8 +84,10 @@ function page_title($url) {
         $title = trim($title);
         return $title;
 }
-/*
-echo page_title("http://www.espncricinfo.com/");
-echo (get_meta_tags("http://www.espncricinfo.com/")['description']);
-*/
+function countocc($url,$find){
+       $str=file_get_contents($url);
+       $no=(array_count_values(str_word_count(strip_tags(strtolower($str)), 1)));
+       echo "No of occurrences=".$no[$find]."<br>";
+
+	}
 ?>
